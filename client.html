@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <input type="text" id="input" placeholder="Message">
+    <input type="text" id="name" placeholder="Username">
+    <br>
+    <input type="text" id="chan" placeholder="Channel">
+    <button onclick="send()">Send</button>
+    <button onclick="get()">Load/Refresh Channel</button>
+    <h1 id="value"></h1>
+    <script>
+        const server = "http://localhost";
+        const port = 8080;
+        const xhttp = new XMLHttpRequest();
+        function get () {
+            xhttp.open("GET", server + ":" + port + "?" + document.getElementById("chan").value + "&" + document.getElementById("name").value, false)
+            xhttp.onload = () => {
+                resp = JSON.parse(xhttp.response);
+                console.log(resp);
+                can = "";
+                for(i = 0; i < resp.channel.length; i++) {
+                    can += resp.channel[i].user + ": " + resp.channel[i].text + "<br>";
+                }
+                document.getElementById('value').innerHTML = can + resp.members;
+            }
+            xhttp.send("hallo")
+            //setTimeout(get, 1000)
+        }
+        function send() {
+            xhttp.open("POST", server + ":" + port, true)
+            msg = {method: "sendMsg", data: {user: document.getElementById("name").value, text: document.getElementById("input").value, channel: 10}}
+            xhttp.send(JSON.stringify(msg))
+            get();
+        }
+    </script>
+</html>
