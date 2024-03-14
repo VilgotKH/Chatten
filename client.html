@@ -2,21 +2,28 @@
 <html>
 	<head>
 	    <title>"Chatten"</title>
+	    <link rel="stylesheet" href="client.css">
     	    <script src="client.js">
-	        var refres = window.setInterval(function(){get()},1000);
+	    	name = prompt("enter name");
 	    </script>
 	</head>
 	<body>
+	    <div class="room">
 	    <input type="text" id="input" placeholder="Message">
-	    <input type="text" id="name" placeholder="Username">
 	    <br>
-	    <input type="text" id="chan" placeholder="Channel">
 	    <button onclick="send()">Send</button>
 	    <button onclick="get('load')">Load/Refresh Channel</button>
 	    <button onclick="make()">Make channel</button>
-	    <button onclick="get('channels')">Load avalible channels</button>
 	    <input type="text" id="adusr" placeholder="User to be added">
 	    <button onclick="add()">Add user to channel</button>
+	    <br>
 	    <h1 id="value"></h1>
+	    </div>
+	    <div class="sidebar">
+	    <h1 id="curchannel">Current channel:</h1>
+	    <div id="sidebar">
+	    </div> 
+	    </div>
+
 	</body>	
 </html>
